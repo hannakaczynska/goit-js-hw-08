@@ -30,3 +30,23 @@ function submitFormValue(e) {
     localStorage.removeItem(STORAGE_KEY);
   }
 }
+
+function updateForm() {
+  const localStoredValue = localStorage.getItem(STORAGE_KEY);
+  if (localStoredValue === null) {
+    return;
+  } else {
+    try {
+      const getValue = JSON.parse(localStoredValue);
+      Object.entries(getValue).forEach(([name, value]) => {
+        formValue[name] = value;
+        form.elements[name].value = value;
+      });
+    } catch (error) {
+      console.log(error.name);
+      console.log(error.message);
+    }
+  }
+}
+
+updateForm();
